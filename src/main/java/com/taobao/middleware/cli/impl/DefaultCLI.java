@@ -257,4 +257,13 @@ public class DefaultCLI implements CLI {
         new UsageMessageFormatter().usage(builder, prefix, this);
         return this;
     }
+
+    @Override
+    public CLI usage(StringBuilder builder, UsageMessageFormatter formatter) {
+        if (formatter == null) {
+            return usage(builder);
+        }
+        formatter.usage(builder, this);
+        return this;
+    }
 }

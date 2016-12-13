@@ -224,4 +224,13 @@ public interface CLI {
      * @return the current {@link CLI} instance
      */
     CLI usage(StringBuilder builder, String prefix);
+
+    /**
+     * Generates the usage / help of the current {@link CLI} with customized usage formatter.
+     *
+     * @param builder the string builder in which the help is going to be printed
+     * @param formatter the formatter object used to format the {@link CLI}
+     * @return the current {@link CLI} instance
+     */
+    CLI usage(StringBuilder builder, UsageMessageFormatter formatter);
 }
