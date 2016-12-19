@@ -352,8 +352,8 @@ public class CLIConfiguratorTest {
     @Name("test")
     public static class CommandForMultipleArgumentTest {
 
-        AtomicReference<String> x = new AtomicReference<>();
-        AtomicReference<Integer> y = new AtomicReference<>();
+        AtomicReference<String> x = new AtomicReference<String>();
+        AtomicReference<Integer> y = new AtomicReference<Integer>();
 
         @Argument(index = 0)
         public void setX(String s) {
@@ -378,8 +378,8 @@ public class CLIConfiguratorTest {
 
     @Name("test")
     public static class CommandWithDefaultValueOnArgument {
-        AtomicReference<String> x = new AtomicReference<>();
-        AtomicReference<Integer> y = new AtomicReference<>();
+        AtomicReference<String> x = new AtomicReference<String>();
+        AtomicReference<Integer> y = new AtomicReference<Integer>();
 
         @Argument(index = 0)
         public void setX(String s) {

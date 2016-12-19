@@ -204,24 +204,24 @@ public class DefaultParserTest {
 
         cli.addOptions(Arrays.asList(options));
         CommandLine evaluated = cli.parse(Arrays.asList("--flag", "--flag2", "--flag3"));
-        assertThat((boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
-        assertThat((boolean) evaluated.getOptionValue("flag2")).isEqualTo(true);
-        assertThat((boolean) evaluated.getOptionValue("flag3")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag2")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag3")).isEqualTo(true);
 
         evaluated = cli.parse(Arrays.asList("--flag=true", "--flag2=false", "--flag3"));
-        assertThat((boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
-        assertThat((boolean) evaluated.getOptionValue("flag2")).isEqualTo(false);
-        assertThat((boolean) evaluated.getOptionValue("flag3")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag2")).isEqualTo(false);
+        assertThat((Boolean) evaluated.getOptionValue("flag3")).isEqualTo(true);
 
         evaluated = cli.parse(Arrays.asList("--flag", "--flag2"));
-        assertThat((boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
-        assertThat((boolean) evaluated.getOptionValue("flag2")).isEqualTo(true);
-        assertThat((boolean) evaluated.getOptionValue("flag3")).isEqualTo(false);
+        assertThat((Boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag2")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag3")).isEqualTo(false);
 
         evaluated = cli.parse(Arrays.asList("--flag", "true", "--flag2", "false", "--flag3"));
-        assertThat((boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
-        assertThat((boolean) evaluated.getOptionValue("flag2")).isEqualTo(false);
-        assertThat((boolean) evaluated.getOptionValue("flag3")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag")).isEqualTo(true);
+        assertThat((Boolean) evaluated.getOptionValue("flag2")).isEqualTo(false);
+        assertThat((Boolean) evaluated.getOptionValue("flag3")).isEqualTo(true);
     }
 
     @Test
@@ -298,12 +298,12 @@ public class DefaultParserTest {
         CommandLine evaluated = cli.parse(Arrays.asList("--num", "-1.5"));
         assertThat(evaluated.cli().getOptions()).hasSize(1);
         assertThat(cli.getArguments()).isEmpty();
-        assertThat((double) evaluated.getOptionValue("num")).isEqualTo(-1.5d);
+        assertThat((Double) evaluated.getOptionValue("num")).isEqualTo(-1.5d);
 
         evaluated = cli.parse(Collections.singletonList("--num=-1.5"));
         assertThat(evaluated.cli().getOptions()).hasSize(1);
         assertThat(cli.getArguments()).isEmpty();
-        assertThat((double) evaluated.getOptionValue("num")).isEqualTo(-1.5d);
+        assertThat((Double) evaluated.getOptionValue("num")).isEqualTo(-1.5d);
     }
 
     @Test(expected = MissingValueException.class)
@@ -348,19 +348,19 @@ public class DefaultParserTest {
 
         // Bare
         CommandLine evaluated = cli.parse(Collections.singletonList("-ha"));
-        assertThat((boolean) evaluated.getOptionValue("ha")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("ha")).isTrue();
         assertThat((String) evaluated.getArgumentValue("verticle")).isNull();
         assertThat((String) evaluated.getArgumentValue(0)).isNull();
         evaluated = cli.parse(Arrays.asList("-ha", "true"));
-        assertThat((boolean) evaluated.getOptionValue("ha")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("ha")).isTrue();
         evaluated = cli.parse(Collections.singletonList("-ha=true"));
-        assertThat((boolean) evaluated.getOptionValue("ha")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("ha")).isTrue();
         evaluated = cli.parse(Collections.singletonList("--ha"));
-        assertThat((boolean) evaluated.getOptionValue("ha")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("ha")).isTrue();
         evaluated = cli.parse(Arrays.asList("--ha", "false"));
-        assertThat((boolean) evaluated.getOptionValue("ha")).isFalse();
+        assertThat((Boolean) evaluated.getOptionValue("ha")).isFalse();
         evaluated = cli.parse(Collections.singletonList("--ha=no"));
-        assertThat((boolean) evaluated.getOptionValue("ha")).isFalse();
+        assertThat((Boolean) evaluated.getOptionValue("ha")).isFalse();
 
 
         // Verticle deployment
@@ -381,19 +381,19 @@ public class DefaultParserTest {
         assertThat(evaluated.allArguments()).hasSize(1).containsExactly("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue("verticle")).isEqualTo("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue(0)).isEqualTo("org.acme.FooVerticle");
-        assertThat((boolean) evaluated.getOptionValue("cluster")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("cluster")).isTrue();
 
         evaluated = cli.parse(Arrays.asList("org.acme.FooVerticle", "--cluster"));
         assertThat(evaluated.allArguments()).hasSize(1).containsExactly("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue("verticle")).isEqualTo("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue(0)).isEqualTo("org.acme.FooVerticle");
-        assertThat((boolean) evaluated.getOptionValue("cluster")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("cluster")).isTrue();
 
         evaluated = cli.parse(Arrays.asList("org.acme.FooVerticle", "-cluster", "-cluster-host", "127.0.0.1"));
         assertThat(evaluated.allArguments()).hasSize(1).containsExactly("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue("verticle")).isEqualTo("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue(0)).isEqualTo("org.acme.FooVerticle");
-        assertThat((boolean) evaluated.getOptionValue("cluster")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("cluster")).isTrue();
         assertThat((String) evaluated.getOptionValue("cluster-host"))
                 .isEqualTo("127.0.0.1");
 
@@ -401,7 +401,7 @@ public class DefaultParserTest {
         assertThat(evaluated.allArguments()).hasSize(1).containsExactly("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue("verticle")).isEqualTo("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue(0)).isEqualTo("org.acme.FooVerticle");
-        assertThat((boolean) evaluated.getOptionValue("cluster")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("cluster")).isTrue();
         assertThat((String) evaluated.getOptionValue("cluster-host"))
                 .isEqualTo("127.0.0.1");
 
@@ -409,7 +409,7 @@ public class DefaultParserTest {
         assertThat(evaluated.allArguments()).hasSize(1).containsExactly("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue("verticle")).isEqualTo("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue(0)).isEqualTo("org.acme.FooVerticle");
-        assertThat((boolean) evaluated.getOptionValue("cluster")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("cluster")).isTrue();
         assertThat((String) evaluated.getOptionValue("cluster-host"))
                 .isEqualTo("127.0.0.1");
 
@@ -418,10 +418,10 @@ public class DefaultParserTest {
         assertThat(evaluated.allArguments()).hasSize(1).containsExactly("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue("verticle")).isEqualTo("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue(0)).isEqualTo("org.acme.FooVerticle");
-        assertThat((boolean) evaluated.getOptionValue("cluster")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("cluster")).isTrue();
         assertThat((String) evaluated.getOptionValue("cluster-host"))
                 .isEqualTo("127.0.0.1");
-        assertThat((int) evaluated.getOptionValue("cluster-port")).isEqualTo(1234);
+        assertThat((Integer) evaluated.getOptionValue("cluster-port")).isEqualTo(1234);
 
     }
 
@@ -441,7 +441,7 @@ public class DefaultParserTest {
         assertThat(evaluated.cli().getOptions()).hasSize(2);
         assertThat(evaluated.getRawValueForOption(evaluated.cli().getOption("systemProperty")))
                 .isEqualTo("x=y");
-        assertThat((boolean) evaluated.getOptionValue("flag")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("flag")).isTrue();
     }
 
     @Test
@@ -458,19 +458,19 @@ public class DefaultParserTest {
 
         cli.addOptions(Arrays.asList(options));
         CommandLine evaluated = cli.parse(Arrays.asList("-d", "-e", "-f"));
-        assertThat((boolean) evaluated.getOptionValue("d")).isTrue();
-        assertThat((boolean) evaluated.getOptionValue("e")).isTrue();
-        assertThat((boolean) evaluated.getOptionValue("f")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("d")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("e")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("f")).isTrue();
 
         evaluated = cli.parse(Collections.singletonList("-de"));
-        assertThat((boolean) evaluated.getOptionValue("d")).isTrue();
-        assertThat((boolean) evaluated.getOptionValue("e")).isTrue();
-        assertThat((boolean) evaluated.getOptionValue("f")).isFalse();
+        assertThat((Boolean) evaluated.getOptionValue("d")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("e")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("f")).isFalse();
 
         evaluated = cli.parse(Collections.singletonList("-def"));
-        assertThat((boolean) evaluated.getOptionValue("d")).isTrue();
-        assertThat((boolean) evaluated.getOptionValue("e")).isTrue();
-        assertThat((boolean) evaluated.getOptionValue("f")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("d")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("e")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("f")).isTrue();
     }
 
     @Test(expected = CLIException.class)

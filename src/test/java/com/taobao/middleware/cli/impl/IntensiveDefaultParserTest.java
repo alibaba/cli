@@ -253,7 +253,7 @@ public class IntensiveDefaultParserTest {
         cli.removeOption("b").addOption(f).addOption(b);
 
         CommandLine evaluated = cli.parse(Arrays.asList(args));
-        assertThat((boolean) evaluated.getOptionValue("bar")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("bar")).isTrue();
         assertThat((String) evaluated.getOptionValue("foo")).isEqualTo("bar");
     }
 
@@ -380,7 +380,7 @@ public class IntensiveDefaultParserTest {
 
         cli.addOption(v).addOption(h);
         CommandLine evaluated = cli.parse(Arrays.asList(args));
-        assertThat((int) evaluated.getOptionValue("verbose")).isEqualTo(1);
+        assertThat((Integer) evaluated.getOptionValue("verbose")).isEqualTo(1);
     }
 
     @Test
@@ -396,7 +396,7 @@ public class IntensiveDefaultParserTest {
 
         cli.addOption(v).addOption(h);
         CommandLine evaluated = cli.parse(Arrays.asList(args));
-        assertThat((int) evaluated.getOptionValue("verbose")).isEqualTo(1);
+        assertThat((Integer) evaluated.getOptionValue("verbose")).isEqualTo(1);
     }
 
     @Test
@@ -493,7 +493,7 @@ public class IntensiveDefaultParserTest {
         cli.addOption(v1).addOption(v2);
         CommandLine evaluated = cli.parse(Arrays.asList(args));
         assertThat((Object) evaluated.getOptionValue("v")).isNull();
-        assertThat((boolean) evaluated.getOptionValue("version")).isTrue();
+        assertThat((Boolean) evaluated.getOptionValue("version")).isTrue();
     }
 
     @Test
