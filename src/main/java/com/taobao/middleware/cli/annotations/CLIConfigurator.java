@@ -21,12 +21,14 @@ import com.taobao.middleware.cli.CLIException;
 import com.taobao.middleware.cli.CommandLine;
 import com.taobao.middleware.cli.TypedArgument;
 import com.taobao.middleware.cli.TypedOption;
+import com.taobao.middleware.cli.impl.ArgumentComparator;
 import com.taobao.middleware.cli.impl.DefaultCLI;
 import com.taobao.middleware.cli.impl.ReflectionUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,6 +87,9 @@ public class CLIConfigurator {
                 cli.addArgument(createArgument(method));
             }
         }
+
+        // Sort the argument by index.
+        Collections.sort(cli.getArguments(), new ArgumentComparator());
 
         return cli;
     }
