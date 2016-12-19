@@ -40,7 +40,7 @@ public class DefaultCLI implements CLI {
     protected boolean hidden;
 
     protected List<Option> options = new ArrayList<Option>();
-    private TreeSet<Argument> arguments = new TreeSet<Argument>(new ArgumentComparator());
+    private List<Argument> arguments = new ArrayList<Argument>();
 
     /**
      * Parses the user command line interface and create a new {@link CommandLine} containing extracting values.
@@ -145,7 +145,7 @@ public class DefaultCLI implements CLI {
 
     @Override
     public List<Argument> getArguments() {
-        return new ArrayList<Argument>(arguments);
+        return arguments;
     }
 
     @Override
@@ -167,7 +167,7 @@ public class DefaultCLI implements CLI {
     @Override
     public CLI setArguments(List<Argument> args) {
         Objects.requireNonNull(args);
-        arguments.addAll(args);
+        arguments = new ArrayList<Argument>(args);
         return this;
     }
 

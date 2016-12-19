@@ -111,15 +111,7 @@ public class DefaultParser {
         }
 
         // Sort the argument by index.
-        Collections.sort(cli.getArguments(), new Comparator<Argument>() {
-            @Override
-            public int compare(Argument o1, Argument o2) {
-                if (o1.getIndex() == o2.getIndex()) {
-                    return 1;
-                }
-                return Integer.valueOf(o1.getIndex()).compareTo(o2.getIndex());
-            }
-        });
+        Collections.sort(cli.getArguments(), new ArgumentComparator());
 
         // Check argument and option validity
         for (Option option : cli.getOptions()) {

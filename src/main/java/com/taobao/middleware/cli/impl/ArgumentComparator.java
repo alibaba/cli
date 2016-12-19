@@ -11,7 +11,10 @@ public class ArgumentComparator implements Comparator<Argument> {
 
     @Override
     public int compare(Argument o1, Argument o2) {
-        return o1.getIndex() - o2.getIndex();
+        if (o1.getIndex() == o2.getIndex()) {
+            return 1;
+        }
+        return Integer.valueOf(o1.getIndex()).compareTo(o2.getIndex());
     }
 
 
