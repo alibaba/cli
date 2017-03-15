@@ -54,7 +54,7 @@ public class IntensiveDefaultParserTest {
     }
 
     private boolean getBooleanOption(CommandLine evaluatedCLI, String name) {
-        return evaluatedCLI.getOptionValue(name);
+        return (Boolean)evaluatedCLI.getOptionValue(name);
     }
 
     private String getStringOption(CommandLine evaluatedCLI, String name) {

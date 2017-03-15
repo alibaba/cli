@@ -370,7 +370,7 @@ public class DefaultParserTest {
         assertThat(evaluated.allArguments()).hasSize(1).containsExactly("org.acme.FooVerticle");
         assertThat((String) evaluated.getArgumentValue("verticle")).isEqualTo("org.acme.FooVerticle");
 
-        int instances = evaluated.getOptionValue("instances");
+        int instances = (Integer)evaluated.getOptionValue("instances");
         List<String> classpath = evaluated.getOptionValues("classpath");
         assertThat(instances).isEqualTo(4);
         assertThat(classpath).containsExactly(".", "my.jar");

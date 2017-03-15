@@ -18,7 +18,6 @@ package com.taobao.middleware.cli;
 
 import com.taobao.middleware.cli.converters.Converter;
 
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -155,7 +154,9 @@ public class TypedOption<T> extends Option {
     }
 
     public TypedOption<T> setListSeparator(String listSeparator) {
-        Objects.requireNonNull(listSeparator);
+        if (listSeparator == null) {
+            throw new NullPointerException();
+        }
         this.parsedAsList = true;
         this.listSeparator = listSeparator;
         return this;

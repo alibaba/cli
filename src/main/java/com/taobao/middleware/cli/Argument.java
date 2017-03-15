@@ -16,9 +16,6 @@
 
 package com.taobao.middleware.cli;
 
-
-import java.util.Objects;
-
 /**
  * Defines a command line argument. Unlike options, argument don't have names and are identified using an index. The
  * first index is 0 (because we are in the computer world).
@@ -129,7 +126,9 @@ public class Argument {
      * @return the current {@link Argument} instance
      */
     public Argument setArgName(String argName) {
-        Objects.requireNonNull(argName);
+        if (argName == null) {
+            throw new NullPointerException();
+        }
         this.argName = argName;
         return this;
     }
@@ -148,7 +147,9 @@ public class Argument {
      * @return the current {@link Argument} instance
      */
     public Argument setDescription(String description) {
-        Objects.requireNonNull(description);
+        if (description == null) {
+            throw new NullPointerException();
+        }
         this.description = description;
         return this;
     }

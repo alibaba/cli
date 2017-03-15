@@ -16,7 +16,6 @@
 
 package com.taobao.middleware.cli;
 
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -242,7 +241,9 @@ public class Option {
      * @return the current {@link Option} instance
      */
     public Option setArgName(String argName) {
-        Objects.requireNonNull(argName);
+        if (argName == null) {
+            throw new NullPointerException();
+        }
         this.argName = argName;
         return this;
     }

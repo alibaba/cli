@@ -55,7 +55,7 @@ public class TypedCLIExamples {
 
     public void example2(CLI cli, List<String> userCommandLineArguments) {
         CommandLine commandLine = cli.parse(userCommandLineArguments);
-        boolean flag = commandLine.getOptionValue("R");
+        boolean flag = (Boolean)commandLine.getOptionValue("R");
         File source = commandLine.getArgumentValue("source");
         File target = commandLine.getArgumentValue("target");
     }
