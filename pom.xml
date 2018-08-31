@@ -43,7 +43,6 @@
     <name>CLI</name>
 
     <properties>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
         <junit.version>4.12</junit.version>
         <assertj.version>2.1.0</assertj.version>
     </properties>
@@ -117,6 +116,23 @@
                                 <exclude>/examples/**</exclude>
                             </excludes>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <!-- add this to disable checking -->
+                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
