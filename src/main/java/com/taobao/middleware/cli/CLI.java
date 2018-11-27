@@ -233,4 +233,7 @@ public interface CLI {
      * @return the current {@link CLI} instance
      */
     CLI usage(StringBuilder builder, UsageMessageFormatter formatter);
+
+    boolean isCaseSensitive();
+    void setCaseSensitive(boolean caseSensitive);
 }

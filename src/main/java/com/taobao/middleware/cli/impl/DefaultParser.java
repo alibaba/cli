@@ -50,6 +50,8 @@ public class DefaultParser {
     private boolean skipParsing;
     private CLI cli;
 
+    protected boolean caseSensitive;
+
     /**
      * Remove the hyphens from the beginning of <code>str</code> and
      * return the new String.
@@ -500,9 +502,17 @@ public class DefaultParser {
         return opt;
     }
 
+    private boolean optionEauals(String name1, String name2) {
+        if (this.caseSensitive) {
+            return name1.equals(name2);
+        } else {
+            return name1.equalsIgnoreCase(name2);
+        }
+    }
+
     private boolean hasOptionWithLongName(String name) {
         for (Option option : cli.getOptions()) {
-            if (name.equalsIgnoreCase(option.getLongName())) {
+            if (optionEauals(name, option.getLongName())) {
                 return true;
             }
         }
@@ -511,7 +521,7 @@ public class DefaultParser {
 
     private boolean hasOptionWithShortName(String name) {
         for (Option option : cli.getOptions()) {
-            if (name.equalsIgnoreCase(option.getShortName())) {
+            if (optionEauals(name, option.getShortName())) {
                 return true;
             }
         }
@@ -552,7 +562,7 @@ public class DefaultParser {
     public Option getOption(String opt) {
         opt = stripLeadingHyphens(opt);
         for (Option option : cli.getOptions()) {
-            if (opt.equalsIgnoreCase(option.getShortName()) || opt.equalsIgnoreCase(option.getLongName())) {
+            if (optionEauals(opt, option.getShortName()) || optionEauals(opt, option.getLongName())) {
                 return option;
             }
         }
@@ -581,7 +591,7 @@ public class DefaultParser {
 
         // Exact match first
         for (Option option : options) {
-            if (opt.equalsIgnoreCase(option.getLongName())) {
+            if (optionEauals(opt, option.getLongName())) {
                 return Collections.singletonList(option);
             }
         }
@@ -614,4 +624,11 @@ public class DefaultParser {
         }
     }
 
+    public boolean isCaseSensitive() {
+        return caseSensitive;
+    }
+
+    public void setCaseSensitive(boolean caseSensitive) {
+        this.caseSensitive = caseSensitive;
+    }
 }

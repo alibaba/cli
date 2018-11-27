@@ -38,6 +38,7 @@ public class DefaultCLI implements CLI {
     protected String description;
     protected String summary;
     protected boolean hidden;
+    protected boolean caseSensitive;
 
     protected List<Option> options = new ArrayList<Option>();
     private List<Argument> arguments = new ArrayList<Argument>();
@@ -50,7 +51,9 @@ public class DefaultCLI implements CLI {
      */
     @Override
     public CommandLine parse(List<String> arguments) {
-        return new DefaultParser().parse(this, arguments);
+        DefaultParser parser = new DefaultParser();
+        parser.setCaseSensitive(this.caseSensitive);
+        return parser.parse(this, arguments);
     }
 
     /**
@@ -62,7 +65,9 @@ public class DefaultCLI implements CLI {
      */
     @Override
     public CommandLine parse(List<String> arguments, boolean validate) {
-        return new DefaultParser().parse(this, arguments, validate);
+        DefaultParser parser = new DefaultParser();
+        parser.setCaseSensitive(this.caseSensitive);
+        return parser.parse(this, arguments, validate);
     }
 
     @Override
@@ -179,19 +184,19 @@ public class DefaultCLI implements CLI {
         // then by short name
         // finally by arg name
         for (Option option : options) {
-            if (name.equalsIgnoreCase(option.getLongName())) {
+            if (optionOrArgumentEauals(name, option.getLongName())) {
                 return option;
             }
         }
 
         for (Option option : options) {
-            if (name.equalsIgnoreCase(option.getShortName())) {
+            if (optionOrArgumentEauals(name, option.getShortName())) {
                 return option;
             }
         }
 
         for (Option option : options) {
-            if (name.equalsIgnoreCase(option.getArgName())) {
+            if (optionOrArgumentEauals(name, option.getArgName())) {
                 return option;
             }
         }
@@ -203,7 +208,7 @@ public class DefaultCLI implements CLI {
     public Argument getArgument(String name) {
         Objects.requireNonNull(name);
         for (Argument arg : arguments) {
-            if (name.equalsIgnoreCase(arg.getArgName())) {
+            if (optionOrArgumentEauals(name, arg.getArgName())) {
                 return arg;
             }
         }
@@ -265,5 +270,23 @@ public class DefaultCLI implements CLI {
         }
         formatter.usage(builder, this);
         return this;
+    }
+
+    @Override
+    public boolean isCaseSensitive() {
+        return caseSensitive;
+    }
+
+    @Override
+    public void setCaseSensitive(boolean caseSensitive) {
+        this.caseSensitive = caseSensitive;
+    }
+
+    private boolean optionOrArgumentEauals(String name1, String name2) {
+        if (this.caseSensitive) {
+            return name1.equals(name2);
+        } else {
+            return name1.equalsIgnoreCase(name2);
+        }
     }
 }

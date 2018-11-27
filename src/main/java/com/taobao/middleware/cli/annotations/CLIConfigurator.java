@@ -39,8 +39,6 @@ import java.util.Set;
  * @author Clement Escoffier <clement@apache.org>
  */
 public class CLIConfigurator {
-
-
     /**
      * Creates an instance of the given class, and extracts the metadata from the given class.
      *
@@ -48,7 +46,19 @@ public class CLIConfigurator {
      * @return the defined CLI.
      */
     public static CLI define(Class<?> clazz) {
+        return define(clazz, false);
+    }
+
+    /**
+     * Creates an instance of the given class, and extracts the metadata from the given class.
+     *
+     * @param clazz the CLI class
+     * @param caseSensitive
+     * @return the defined CLI.
+     */
+    public static CLI define(Class<?> clazz, boolean caseSensitive) {
         CLI cli = new DefaultCLI();
+        cli.setCaseSensitive(caseSensitive);
 
         // Class annotations
         final Summary summary = clazz.getAnnotation(Summary.class);
