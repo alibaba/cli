@@ -378,7 +378,10 @@ public class Option {
      */
     public Option setFlag(boolean flag) {
         this.flag = flag;
-        setSingleValued(false);
+        if (flag) {
+            setSingleValued(false);
+        }
+
         return this;
     }
 
