@@ -32,7 +32,7 @@ public class MissingValueException extends CLIException {
      */
     public MissingValueException(Option option) {
         super("The option '" + option.getName() + "' requires a value"
-              + (option.description == null ? "" : "\n" + option.description));
+              + (option.description == null ? "" : ", description: " + option.description));
         this.argument = null;
         this.option = option;
     }
@@ -46,7 +46,7 @@ public class MissingValueException extends CLIException {
     public MissingValueException(Argument argument) {
         super("The argument '"
                 + (argument.getArgName() != null ? argument.getArgName() : argument.getIndex())
-                + "' is required" + (argument.description == null ? "" : "\n" + argument.description));
+                + "' is required" + (argument.description == null ? "" : ", description: " + argument.description));
         this.option = null;
         this.argument = argument;
     }
