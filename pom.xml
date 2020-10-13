@@ -43,7 +43,7 @@
     <name>CLI</name>
 
     <properties>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <assertj.version>2.1.0</assertj.version>
     </properties>
 
